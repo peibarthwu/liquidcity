@@ -644,7 +644,8 @@ class MeshItem {
     }
     getDimensions() {
         const { width , height , top , left  } = this.element.getBoundingClientRect();
-        this.sizes.set(width * (1 - 1 / perspective * this.zpos), height * (1 - 1 / perspective * this.zpos));
+        // this.sizes.set(width*(1-(1/perspective)*this.zpos), height*(1-(1/perspective)*this.zpos));
+        this.sizes.set(width, height);
         this.offset.set(left - window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2);
     }
     createMesh() {
@@ -678,17 +679,13 @@ class MeshItem {
             // wireframe: true,
             side: _three.DoubleSide
         });
-        if (this.element.classList.contains("staticimg")) {
-            this.zpos = -2;
-            this.mesh = new _three.Mesh(this.geometry, this.material);
-            this.getDimensions(); // set offsetand sizes for placement on the scene
-        } else {
-            this.zpos = -1;
-            this.mesh = new _three.Mesh(this.geometry, this.material);
-            this.getDimensions(); // set offsetand sizes for placement on the scene
-        }
         if (this.element.classList.contains("right")) this.rotation = 1;
-        if (this.element.classList.contains("front")) this.zpos = 8;
+        if (this.element.classList.contains("front")) {
+            this.zpos = 1;
+            console.log("in front");
+        } else this.zpos = -2;
+        this.mesh = new _three.Mesh(this.geometry, this.material);
+        this.getDimensions(); // set offsetand sizes for placement on the scene
         this.mesh.scale.set(this.sizes.x, this.sizes.y, 1);
         this.mesh.position.set(this.offset.x, this.offset.y, this.zpos);
         this.scene.add(this.mesh);

@@ -84,13 +84,23 @@ canvas {
   left: 0;
 }
 
-.logo{
+.stem{
   top: 0;
   height: 300vh;
   width: 40%;
   justify-content: center;
   align-items: center;
   position: absolute;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ff0000;
 }
 
 .dfnr{
